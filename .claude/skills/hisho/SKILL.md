@@ -38,12 +38,22 @@ trigger: /hisho
 - **設計思想・ハーネス知識** → `llm` スキル（loop / harness / context engineering、`references/`）。
 - **loop の全体設計** → `.hisho/notes/2026-07-01-11-17-03-sns-youtube-loop-engineering-design.md`（**account > 媒体 > state** 構造）。
 - **アカウント状態（外部メモリ）** → `accounts/<account>/`（例 `maru-ir`）。声は `account.md`、媒体別フォーマットは `<媒体>/state/voice.md`、禁止事項は `compliance.md`。
-- **要約ループの実行** → **`ir-summary` スキル**（IR/決算を account の声で要約 → コンプラ自己チェック → `<媒体>/01_review_queue/` に下書き。**投稿はしない＝人間承認ゲート**）。
+- **要約ループの実行（ドメイン別スキル）**:
+  - **IR/決算** → **`ir-summary`**（例 `maru-ir`）
+  - **AIニュース速報** → **`ai-news`**（例 `maru-ai`）
+  - どちらも account の声で下書き → コンプラ＋数字の独立レビュー → `<媒体>/01_review_queue/<slug>/` に post.md（＋画像）。**投稿はしない＝人間承認ゲート**。
 
 **運用ルール**:
-- IR要約・SNS 投稿ドラフト・アカウント運用の依頼が来たら、**自前で書き起こさず `ir-summary` を使う**。
-- スタイルの唯一の記憶は各 `voice.md`。ユーザーのフィードバック（トーン・体裁）は **voice.md に焼き込む**（会話の記憶に頼らない＝次のループが自動で反映）。
-- 個別株は投資勧誘・売買推奨をしない（`compliance.md` 厳守）。投稿は必ず人間承認ゲートを通す。
+- 要約・投稿ドラフト・アカウント運用の依頼は、**自前で書き起こさずドメイン別スキル（ir-summary / ai-news）を使う**。
+- スタイルの唯一の記憶は各 `voice.md`。フィードバック（トーン・体裁）は **voice.md に焼き込む**（会話に頼らない＝次ループが自動反映）。
+- 投稿は必ず人間承認ゲートを通す。個別株は投資勧誘・売買推奨をしない（`compliance.md` 厳守）。
+
+### 資産化（loop で asset を育てる）は hisho が考える
+スキルは毎ループの**記録**（sources/voice/posted/progress への追記）に徹する。**「複利で強くする設計」は hisho の担当**:
+- **sources.md の精選**（信頼できた一次ソースを蓄積・重複整理、鮮度ルール維持）。
+- **voice.md の統廃合**（フィードバックの焼き込み・矛盾解消・family 横断の共通化）。
+- **アカウント横断の学び**（例: 数字の独立レビュー・画像同梱・3日鮮度 などの良い型を各 account に展開）。
+- 定期的に progress.txt / posted.md を見て「次に伸ばす資産」を提案する。
 
 ## ワークフロー
 

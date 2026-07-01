@@ -5,4 +5,4 @@ state: `approved`=承認済み・配信待ち、`posted`=配信済み（投稿UR
 
 <!-- 例: 2026-07-01 | 7203 トヨタ Q1 | (IR URL) | posted | (post URL) -->
 
-- 2026-07-01 | 9364 上組・自社株買い（150億円/420万株/4.25%）| TDnet適時開示・日経会社情報・IRBANK | **approved** | 02_approved/2026-07-01-kamigumi-9364-buyback.md（X投稿URL 未記入）
+- 2026-07-01 | 9364 上組・自社株買い（150億円/420万株/4.25%）| TDnet適時開示・日経会社情報・IRBANK | **approved** | 02_approved/2026-07-01-kamigumi-9364-buyback/（X投稿URL 未記入）
