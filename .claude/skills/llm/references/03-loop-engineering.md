@@ -1,10 +1,29 @@
 # 03. Loop エンジニアリング（反復ループそのものの設計）
 
-出典: [S1][S2][S3][S5][S6][S7][S8][S9]（→ [sources.md](./sources.md)）
+出典: [S1][S2][S3][S5][S6][S7][S8][S9][S12]（→ [sources.md](./sources.md)）
 
 ## ループの形
 
 `gather context → take action → verify work → repeat`（詳細は [02-harness-engineering.md](./02-harness-engineering.md)）。[S6][S7]
+
+## ループの4類型（trigger / stop / primitive で選ぶ）[S12]
+
+Claude Code チームの定義: **loop = stop 条件を満たすまで作業サイクルを繰り返す agent**。「**一番シンプルな解から始め、selectively に使う**（全タスクに複雑な loop は不要）」。
+
+| 類型 | trigger | stop 条件 | 適する仕事 | 手放すもの / primitive |
+| --- | --- | --- | --- | --- |
+| **Turn-based** | ユーザーの1プロンプト | Claude が完了 or 追加 context 要と判断 | 短く・定常でない単発 | "check"（検証を skill 化して自己検証を厚く）|
+| **Goal-based** | 手動プロンプト（実時間）| **目標達成 or 最大ターン到達** | 検証可能な exit 基準がある | "stop 条件"（`/goal`。**evaluator モデルが条件を判定**し未達なら継続）|
+| **Time-based** | 指定インターバル | キャンセル or 完了（PR merge・queue 空）| 定常反復・外部システム連携 | "trigger"（`/loop`=自機・`/schedule`=cloud routine）|
+| **Proactive** | イベント/スケジュール（実時間の人間なし）| 各タスクは goal 達成で exit、routine は停止まで継続 | 定義の明確な反復流（issue triage・migration 等）| "prompt"（`/schedule`+`/goal`+skills+dynamic workflows+auto mode を合成）|
+
+- **Goal-based の勘所**: 「done の定義」を渡すと Claude が早期終了を自己判断しなくて済む。**deterministic な基準**（テスト通過数・スコア閾値）が最も効く。例 `/goal get the homepage Lighthouse score to 90 or above, stop after 5 tries`。
+- **Time-based**: 「タスクは同じで input だけ変わる」定常作業（毎朝 Slack 要約）や、外部状態を interval で見て反応する用途（PR の review/CI）。`/loop` は自機依存（切ると止まる）→ cloud 化は `/schedule`。
+- **Proactive**: 「小さく速いモデルに routine を流し、判断所だけ最も有能なモデル」。auto mode で権限確認に止まらず走らせる。**pilot（小さいスライスで試す）してから大規模化**。
+
+### 品質と token を保つ（loop を回す前提）[S12]
+- **品質**: codebase を綺麗に保つ（Claude は既存 pattern に倣う）/ 「good の姿」を skill で符号化し**自己検証**させる / docs を届く所に置く / **fresh context の second agent でレビュー**（`/code-review` 等、主 agent の推論に引きずられず bias が減る）/ **個別 fix で止めず system に還元**（次回以降の全反復を改善）。
+- **token**: 仕事に対し **正しい primitive と model** を選ぶ（小タスクに多 agent/loop 不要）/ 明確な success・stop 基準 / **大規模 run 前に pilot** / 決定的作業は **script 化**（都度推論より安い）/ routine を必要以上に回さない（対象の変化頻度に interval を合わせる）/ **`/usage`・引数なし `/goal`・`/workflows` で使用量を確認**。
 
 ## Context 管理（ループの生命線）
 

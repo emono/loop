@@ -9,7 +9,7 @@ Claude Code / Claude Agents の **loop engineering** を、英語公式ドキュ
 | --- | --- |
 | [01-philosophy.md](./01-philosophy.md) | 思想・設計原則 — simple first / workflows vs agents / ACI / delegate, don't dictate |
 | [02-harness-engineering.md](./02-harness-engineering.md) | agentic harness — agent loop / context engineering / tool 設計 / permission model / verification |
-| [03-loop-engineering.md](./03-loop-engineering.md) | 反復ループの設計 — context 管理・compaction / self-correction / long-horizon / interval 実行 / 停止条件 |
+| [03-loop-engineering.md](./03-loop-engineering.md) | 反復ループの設計 — loop の4類型（turn/goal/time/proactive）/ context 管理・compaction / self-correction / long-horizon / interval 実行 / 停止条件 |
 | [04-command-reference.md](./04-command-reference.md) | 現行コマンド・機能 — slash commands / CLI flags / subagents / hooks / MCP / skills / permission modes |
 | [sources.md](./sources.md) | 出典一覧・変遷・未確認フラグ |
 
@@ -20,5 +20,6 @@ Claude Code / Claude Agents の **loop engineering** を、英語公式ドキュ
 - **loop engineering の主戦場は context**。context は「収穫逓減する有限資源」で、埋まるほど性能が落ちる（**context rot**）。compaction・sub-agent 分離・just-in-time 取得・structured note-taking で「high-signal token を最小集合に」保つのが核心。
 - ループを閉じるのは **verification**。pass/fail を返す仕組み（test・lint・screenshot・judge）を与えると **ループは自律的に閉じる**。
 - 長時間タスク（long-horizon）では **compaction だけでは不足**。progress ファイル + git log の外部メモリ + 二段 harness で context window を跨ぐ。
+- loop は **4類型**（turn-based / goal-based `/goal` / time-based `/loop`・`/schedule` / proactive）を trigger・stop・primitive で選ぶ。**全タスクに複雑な loop は不要 — 一番シンプルな解から selectively に**。
 
 > 元の統合ノート（1ファイル版）: `.hisho/notes/2026-07-01-11-00-06-loop-engineering.md`

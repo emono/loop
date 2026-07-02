@@ -67,7 +67,7 @@ user-invocable: true
 - チェック結果は下書きに**evidence として併記**（成功を主張せず根拠を示す）。
 
 ### 4b. 数字の独立レビュー（必須・verification subagent）
-- **別の subagent** に、下書き内の**全数字を一次ソースと突合**させる（作業者≠採点者。fresh context で反証させる）[llm: S3/S6]。
+- **`fact-checker` agent**（`.claude/agents/`）に、下書き内の**全数字を一次ソースと突合**させる（作業者≠採点者・fresh context で反証）[llm: S3/S6/S12]。
 - 各数字を VERIFIED / WRONG / UNVERIFIABLE で判定。**前回予想比 と 前期比 の取り違え**、**時点値の陳腐化**、**株式分割の調整漏れ**を特に見る。
 - **WRONG があれば draft を直してから 5 へ**。UNVERIFIABLE は本文から落とすか「未確認」明記。突合結果はレビューファイルに残す。
 
