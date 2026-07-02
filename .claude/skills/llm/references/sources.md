@@ -16,6 +16,7 @@
 | S9 | Managing context on the Claude Developer Platform | https://claude.com/blog/context-management |
 | S10 | Writing tools for agents (2025-09-11) | https://www.anthropic.com/engineering/writing-tools-for-agents |
 | S11 | Configure permissions | https://code.claude.com/docs/en/permissions |
+| S12 | Getting started with loops (2026-06-30, Delba de Oliveira & Michael Segner) | https://www.anthropic.com/news/getting-started-with-loops |
 
 参照リファレンス（fetch 済み or URL 参照）: code.claude.com/docs/en/ の `commands` `cli-reference` `sub-agents` `hooks` `mcp` `skills` `memory` `permission-modes` `headless`。
 
@@ -26,6 +27,7 @@
 - **2025-09-29 S1/S6**: 「prompt → **context** engineering」再定義。loop を `gather→act→verify→repeat` に定式化。attention budget / context rot / compaction / just-in-time / structured note-taking / sub-agent 分離が出そろう。
 - **2025-11-26 S5**: long-horizon 多窓・自律実行へ拡張。progress ファイル + git log recovery を導入。「compaction だけでは不足」。
 - **現行 docs（code.claude.com）**: best practices が移設・大幅拡張（`/goal` 検証条件・Stop hook・checkpoint・agent teams・worktree・auto mode classifier）。permission は「allow/deny + `--dangerously-skip-permissions`」から **6段パイプライン + `dontAsk`/`auto`/sandbox/enterprise managed** に成長。
+- **2026-06-30 S12**: loop を**トリガ/停止/primitive/タスク種別**で **4類型**（turn-based / goal-based `/goal` / time-based `/loop`・`/schedule` / proactive）に整理。「一番シンプルな解から、selectively に」を明示。品質維持（second-agent review・fix を system に還元）と token 管理（primitive/model 選択・pilot・script 化・`/usage`）を体系化。
 
 ## 未確認・要注意フラグ（誠実性のため）
 
