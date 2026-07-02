@@ -33,20 +33,8 @@ trigger: /hisho
 
 ## このプロジェクトの loop（SNS/IR 運用）— 重要文脈
 
-この repo は「SNS/YouTube 運用を **agentic loop** で回す」プロジェクト。関連依頼が来たら次を把握して動く:
-
-- **設計思想・ハーネス知識** → `llm` スキル（loop / harness / context engineering、`references/`）。
-- **loop の全体設計** → `.hisho/notes/2026-07-01-11-17-03-sns-youtube-loop-engineering-design.md`（**account > 媒体 > state** 構造）。
-- **アカウント状態（外部メモリ）** → `accounts/<account>/`（例 `maru-ir`）。声は `account.md`、媒体別フォーマットは `<媒体>/state/voice.md`、禁止事項は `compliance.md`。
-- **要約ループの実行（ドメイン別スキル）**:
-  - **IR/決算** → **`ir-summary`**（例 `maru-ir`）
-  - **AIニュース速報** → **`ai-news`**（例 `maru-ai`）
-  - どちらも account の声で下書き → コンプラ＋数字の独立レビュー → `<媒体>/01_review_queue/<slug>/` に post.md（＋画像）。**投稿はしない＝人間承認ゲート**。
-
-**運用ルール**:
-- 要約・投稿ドラフト・アカウント運用の依頼は、**自前で書き起こさずドメイン別スキル（ir-summary / ai-news）を使う**。
-- スタイルの唯一の記憶は各 `voice.md`。フィードバック（トーン・体裁）は **voice.md に焼き込む**（会話に頼らない＝次ループが自動反映）。
-- 投稿は必ず人間承認ゲートを通す。個別株は投資勧誘・売買推奨をしない（`compliance.md` 厳守）。
+**project の構造・スキル使い分け・運用ルール（投稿しない＝人間承認ゲート／個別株勧誘しない 等）は
+root `CLAUDE.md`（常時ロードの索引）に集約済み**。まずそれを前提に動く。hisho 固有の責務のみ以下に残す。
 
 ### 資産化（loop で asset を育てる）は hisho が考える
 スキルは毎ループの**記録**（sources/voice/posted/progress への追記）に徹する。**「複利で強くする設計」は hisho の担当**:
